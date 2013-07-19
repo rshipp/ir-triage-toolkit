@@ -1,0 +1,7 @@
+Tasks performed by both tookits:
+
+1. Acquire a full memory dump.
+2. Collect network information.
+3. Collect information about opened files and running processes.
+4. Collect user/system information.
+5. Collect device information.
