@@ -18,5 +18,31 @@ savedir=$1
         ) || exit 1
     ) || exit 1
 
+# Where are our binaries?
+bin="$(pwd)/tools/$(uname -m)/bin"
+[[ -d $bin ]] || ( 
+    echo "Linux IR binaries cannot be found."
+    echo "This script must be run inside its own directory."
+    exit 1
+    ) || exit 1
+
+# Create directory structure.
+saveto="$savedir/$(hostname)-$(date +%Y.%m.%d-%H.%M.%S)"
+mkdir -p "$saveto"{memdump,network,fopen,system,device}
+
 # 1. Acquire a full memory dump.
+memfile="$saveto/memdump/$(hostname)-linux-$(uname -m)"
+"$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
+             log="${memfile}.log" hlog="${memfile}.sum"
+
+# 2. Collect network information.
+
+             
+# 3. Collect information about opened files and running processes.
+
+
+# 4. Collect user/system information.
+
+
+# 5. Collect device information.
 
