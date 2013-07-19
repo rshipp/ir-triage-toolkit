@@ -1,0 +1,22 @@
+#!/bin/bash
+# Collect data.
+
+# Make sure we're root.
+[[ $UID == 0 || $EUID == 0 ]] || (
+        echo "Must be root!"
+        exit 1
+        )
+
+# Where should we store the data?
+savedir=$1
+[[ -n $savedir ]] || (
+    echo -n "Directory to store data: "
+    read savedir
+    [[ -d $savedir ]] || mkdir -p "$savedir" || (
+        echo "Not a valid directory."
+        exit 1
+        ) || exit 1
+    ) || exit 1
+
+# 1. Acquire a full memory dump.
+
