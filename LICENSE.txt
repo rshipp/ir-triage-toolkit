@@ -1,0 +1,5 @@
+Some files included in this distribution are protected by the Gnu
+General Public License, version 2.0 or 3.0. The create-toolkit scripts
+are disctibuted under the terms of the "New BSD" or "BSD 3-clause"
+license. All three of these licenses have been included in this
+distibution.
