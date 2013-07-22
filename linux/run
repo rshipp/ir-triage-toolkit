@@ -43,8 +43,7 @@ log "# Starting data collection..."
 # 1. Acquire a full memory dump.
 log "# Starting dc3dd to dump system memory..."
 memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
-log "$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
-             log="${memfile}.log" hlog="${memfile}.sum"
+log "$bin/dc3dd if=/dev/mem hash=sha512 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
 "$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
              log="${memfile}.log" hlog="${memfile}.sum"
 log "# dc3dd finished."
