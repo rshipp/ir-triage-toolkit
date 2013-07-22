@@ -1,7 +1,9 @@
 ir-triage-toolkit
 =================
 
-Create an incident response triage toolkit for use with Windows or Linux.
+Create an incident response triage toolkit for use with Windows or
+Linux, without violating any license agreements or copyright
+restrictions.
 
 ## Description
 A collection of scripts that can be used to create a toolkit for
