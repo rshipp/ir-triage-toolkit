@@ -68,6 +68,9 @@ log "id"
 id > "$saveto/users_id.txt"
 log "uname -a"
 uname -a > "$saveto/system_uname.txt"
+log "Dumping kernel message buffer (dmesg)."
+log "dmesg"
+dmesg > "$saveto/system_dmesg.txt"
 
 # 5. Collect device information.
 log "Collecting information about currently mounted devices."
