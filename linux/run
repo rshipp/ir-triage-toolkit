@@ -28,21 +28,50 @@ bin="$(pwd)/tools/$(uname -m)/bin"
 
 # Create directory structure.
 saveto="$savedir/$(hostname)-$(date +%Y.%m.%d-%H.%M.%S)"
-mkdir -p "$saveto"{memdump,network,fopen,system,device}
+mkdir -p "$saveto"
+logfile="$saveto/log.txt"
+
+log() {
+  echo -n "$(date +"%b %d %H:%M:%S") $(hostname) irscript: $1" | tee -a "$logfile"
+}
+
+# Start the log.
+echo -n > "$logfile"
+log "Incident response volatile data collection script."
+log "Starting..."
 
 # 1. Acquire a full memory dump.
-memfile="$saveto/memdump/$(hostname)-linux-$(uname -m)"
+log "Starting dc3dd to dump system memory..."
+log "$bin/dc3dd if=/dev/mem hash=sha256 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
+memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
 "$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
              log="${memfile}.log" hlog="${memfile}.sum"
+log "dc3dd finished."
 
 # 2. Collect network information.
-
+log "Collecting network information..."
+log "netstat -ap"
+netstat -ap > "$saveto/network.txt"
              
 # 3. Collect information about opened files and running processes.
-
+log "Collecting information about opened files and running processes."
+log "lsof"
+lsof > "$saveto/opened_files.txt"
 
 # 4. Collect user/system information.
-
+log "Collecting user/system information."
+log "w"
+w > "$saveto/users_w.txt"
+log "who"
+who > "$saveto/users_who.txt"
+log "id"
+id > "$saveto/users_id.txt"
+log "uname -a"
+uname -a > "$saveto/system_uname.txt"
 
 # 5. Collect device information.
+log "Collecting information about currently monuted devices."
+log "mount"
+mount > "$saveto/mounted_devices.txt"
 
+log "All tasks completed. Exiting."
