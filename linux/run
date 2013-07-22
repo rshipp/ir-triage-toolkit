@@ -37,49 +37,38 @@ log() {
 
 # Start the log.
 echo -n > "$logfile"
-log "Incident response volatile data collection script."
-log "Starting..."
+log "# Incident response volatile data collection script."
+log "# Starting data collection..."
 
 # 1. Acquire a full memory dump.
-log "Starting dc3dd to dump system memory..."
-log "$bin/dc3dd if=/dev/mem hash=sha256 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
+log "# Starting dc3dd to dump system memory..."
 memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
-"$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
-             log="${memfile}.log" hlog="${memfile}.sum"
-log "dc3dd finished."
+log "$("$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
+             log="${memfile}.log" hlog="${memfile}.sum")"
+log "# dc3dd finished."
 
 # 2. Collect network information.
-log "Collecting network information..."
-log "netstat -ap"
-netstat -ap > "$saveto/network.txt"
+log "# Collecting network information..."
+log "$(netstat -ap > "$saveto/network.txt")"
              
 # 3. Collect information about opened files and running processes.
-log "Collecting information about opened files and running processes."
-log "lsof"
-lsof > "$saveto/opened_files.txt"
+log "# Collecting information about opened files and running processes."
+log "$(lsof > "$saveto/opened_files.txt")"
 
 # 4. Collect user/system information.
-log "Collecting user/system information."
-log "w"
-w > "$saveto/users_w.txt"
-log "who"
-who > "$saveto/users_who.txt"
-log "id"
-id > "$saveto/users_id.txt"
-log "uname -a"
-uname -a > "$saveto/system_uname.txt"
-log "Dumping kernel message buffer (dmesg)."
-log "dmesg"
-dmesg > "$saveto/system_dmesg.txt"
+log "# Collecting user/system information."
+log "$(w > "$saveto/users_w.txt")"
+log "$(who > "$saveto/users_who.txt")"
+log "$(id > "$saveto/users_id.txt")"
+log "$(uname -a > "$saveto/system_uname.txt")"
+log "# Dumping kernel message buffer (dmesg)."
+log "$(dmesg > "$saveto/system_dmesg.txt")"
 
 # 5. Collect device information.
-log "Collecting information about currently mounted devices."
-log "mount"
-mount > "$saveto/mounted_devices.txt"
+log "# Collecting information about currently mounted devices."
+log "$(mount > "$saveto/mounted_devices.txt")"
 
 # Create checksums for all files.
-log "Creating checksums (sha512sum) for all files."
-log "sha512sum '$saveto/*'"
-sha512sum "$saveto/"* > "$saveto/.sums" "$saveto/sha512sums.txt"
-
-log "All tasks completed. Exiting."
+log "# Creating checksums (sha512sum) for all files."
+log "$(sha512sum "$saveto/"* > "$saveto/.sums" "$saveto/sha512sums.txt")"
+log "# All tasks completed. Exiting."
