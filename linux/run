@@ -5,7 +5,7 @@
 [[ $UID == 0 || $EUID == 0 ]] || (
         echo "Must be root!"
         exit 1
-        )
+        ) || exit 1
 
 # Where should we store the data?
 savedir=$1
@@ -70,8 +70,13 @@ log "uname -a"
 uname -a > "$saveto/system_uname.txt"
 
 # 5. Collect device information.
-log "Collecting information about currently monuted devices."
+log "Collecting information about currently mounted devices."
 log "mount"
 mount > "$saveto/mounted_devices.txt"
+
+# Create checksums for all files.
+log "Creating checksums (sha512sum) for all files."
+log "sha512sum '$saveto/*'"
+sha512sum "$saveto/"* > "$saveto/.sums" "$saveto/sha512sums.txt"
 
 log "All tasks completed. Exiting."
