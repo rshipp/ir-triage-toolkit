@@ -55,27 +55,27 @@ netstat -ap > "$saveto/network.txt"
              
 # 3. Collect information about opened files and running processes.
 log "# Collecting information about opened files and running processes."
-log "lsof > $saveto/opened_files.txt"
-lsof > "$saveto/opened_files.txt"
+log "lsof > $saveto/opened_files.txt 2>&1"
+lsof > "$saveto/opened_files.txt" 2>&1
 
 # 4. Collect user/system information.
 log "# Collecting user/system information."
-log "w > $saveto/users_w.txt"
-w > "$saveto/users_w.txt"
-log "who > $saveto/users_who.txt"
-who > "$saveto/users_who.txt"
-log "id > $saveto/users_id.txt"
-id > "$saveto/users_id.txt"
-log "uname -a > $saveto/system_uname.txt"
-uname -a > "$saveto/system_uname.txt"
+log "w > $saveto/users_w.txt 2>&1"
+w > "$saveto/users_w.txt" 2>&1
+log "who > $saveto/users_who.txt 2>&1"
+who > "$saveto/users_who.txt" 2>&1
+log "id > $saveto/users_id.txt 2>&1"
+id > "$saveto/users_id.txt" 2>&1
+log "uname -a > $saveto/system_uname.txt 2>&1"
+uname -a > "$saveto/system_uname.txt" 2>&1
 log "# Dumping kernel message buffer (dmesg)."
-log "dmesg > $saveto/system_dmesg.txt"
-dmesg > "$saveto/system_dmesg.txt"
+log "dmesg > $saveto/system_dmesg.txt 2>&1"
+dmesg > "$saveto/system_dmesg.txt" 2>&1
 
 # 5. Collect device information.
 log "# Collecting information about currently mounted devices."
-log "mount > $saveto/mounted_devices.txt"
-mount > "$saveto/mounted_devices.txt"
+log "mount > $saveto/mounted_devices.txt 2>&1"
+mount > "$saveto/mounted_devices.txt" 2>&1
 
 # Create checksums for all files
 log "# Creating checksums (sha512sum) for all files."
