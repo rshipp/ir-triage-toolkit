@@ -33,7 +33,9 @@
         <h1>
 <a name="ir-triage-toolkit" class="anchor" href="#ir-triage-toolkit"><span class="octicon octicon-link"></span></a>ir-triage-toolkit</h1>
 
-<p>Create an incident response triage toolkit for use with Windows or Linux.</p>
+<p>Create an incident response triage toolkit for use with Windows or
+Linux, without violating any license agreements or copyright
+restrictions.</p>
 
 <h2>
 <a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
@@ -57,8 +59,33 @@ toolkit.</p>
 
 <p>Linux:</p>
 
-<pre><code>./create-toolkit /media/device/store/it/here
+<pre><code>./create-toolkit /store/it/here
 </code></pre>
+
+<p>Once the toolkit has been created, you can use it by opening a shell in
+the directory where the toolkit is stored, and starting the volatile
+data collection script:</p>
+
+<p>Windows:</p>
+
+<pre><code>run E:\Store\my\volatile\data\here
+</code></pre>
+
+<p>Linux:</p>
+
+<pre><code>./run /store/my/volatile/data/here
+</code></pre>
+
+<p>Be sure the directory in which you choose to save the volatile data has
+plenty of space (several GB, at least), as the script will dump the
+contents of the system's memory, and store several other files of
+varying sizes. Both Windows and Linux scripts accomplish the same basic
+tasks (see tasks.txt), and both follow the order of volatility (OOV) for
+data collection as much as possible. They also create detailed,
+timestamped logs of the commands executed, and create sha512 checksums
+of the files saved to the storage directory. Be prepared for the scripts
+to run for a while, as it may take some time to image and compute a
+checksum of the system's memory.</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
