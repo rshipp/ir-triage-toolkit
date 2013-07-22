@@ -50,8 +50,8 @@ log "# dc3dd finished."
 
 # 2. Collect network information.
 log "# Collecting network information..."
-log "netstat -ap > $saveto/network.txt"
-netstat -ap > "$saveto/network.txt"
+log "netstat -ap > $saveto/network.txt 2>&1"
+netstat -ap > "$saveto/network.txt" 2>&1
              
 # 3. Collect information about opened files and running processes.
 log "# Collecting information about opened files and running processes."
