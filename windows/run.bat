@@ -5,6 +5,7 @@ rem Make sure we're Admin.
 net file >nul 2>nul
 if errorlevel 1 (
         echo Must be Admin!
+        echo Press any key to exit...
         pause >nul
         goto :eof
 )

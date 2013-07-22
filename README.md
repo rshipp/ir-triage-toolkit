@@ -22,6 +22,27 @@ Windows:
 
 Linux:
 
-    ./create-toolkit /media/device/store/it/here
+    ./create-toolkit /store/it/here
 
+Once the toolkit has been created, you can use it by opening a shell in
+the directory where the toolkit is stored, and starting the volatile
+data collection script:
 
+Windows:
+
+    run E:\Store\my\volatile\data\here
+
+Linux:
+
+    ./run /store/my/volatile/data/here
+
+Be sure the directory in which you choose to save the volatile data has
+plenty of space (several GB, at least), as the script will dump the
+contents of the system's memory, and store several other files of
+varying sizes. Both Windows and Linux scripts accomplish the same basic
+tasks (see tasks.txt), and both follow the order of volatility (OOV) for
+data collection as much as possible. They also create detailed,
+timestamped logs of the commands executed, and create sha512 checksums
+of the files saved to the storage directory. Be prepared for the scripts
+to run for a while, as it may take some time to image and compute a
+checksum of the system's memory.
