@@ -3,4 +3,23 @@
 # Create an incident response and volatile data collection toolkit for
 # use on Linux machines. 
 
+if [[ -n $1 ]]; then
+  echo -n "Directory to save toolkit: "
+  read saveto
+fi
 
+saveto="${1-$saveto}"
+mkdir -p "$saveto" 2>/dev/null
+
+if ! [[ -d $saveto ]]; then
+  echo "No save directory specified, or invalid directory. Exiting."
+  exit 1
+fi
+
+if ! [[ -r linux/run ]]; then
+  # we're probably not in the right directory.
+  echo "Toolkit files cannot be found. Exiting."
+  exit 1
+fi
+
+cp -R linux/{run,tools} "$saveto/"
