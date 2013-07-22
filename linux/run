@@ -43,32 +43,46 @@ log "# Starting data collection..."
 # 1. Acquire a full memory dump.
 log "# Starting dc3dd to dump system memory..."
 memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
+log "$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
+             log="${memfile}.log" hlog="${memfile}.sum"
 log "$("$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
              log="${memfile}.log" hlog="${memfile}.sum")"
 log "# dc3dd finished."
 
 # 2. Collect network information.
 log "# Collecting network information..."
-log "$(netstat -ap > "$saveto/network.txt")"
+log "netstat -ap > $saveto/network.txt"
+netstat -ap > "$saveto/network.txt"
              
 # 3. Collect information about opened files and running processes.
 log "# Collecting information about opened files and running processes."
-log "$(lsof > "$saveto/opened_files.txt")"
+log "lsof > $saveto/opened_files.txt"
+lsof > "$saveto/opened_files.txt"
 
 # 4. Collect user/system information.
 log "# Collecting user/system information."
-log "$(w > "$saveto/users_w.txt")"
-log "$(who > "$saveto/users_who.txt")"
-log "$(id > "$saveto/users_id.txt")"
-log "$(uname -a > "$saveto/system_uname.txt")"
+log "w > $saveto/users_w.txt"
+w > "$saveto/users_w.txt"
+log "who > $saveto/users_who.txt"
+who > "$saveto/users_who.txt"
+log "id > $saveto/users_id.txt"
+id > "$saveto/users_id.txt"
+log "uname -a > $saveto/system_uname.txt"
+uname -a > "$saveto/system_uname.txt"
 log "# Dumping kernel message buffer (dmesg)."
-log "$(dmesg > "$saveto/system_dmesg.txt")"
+log "dmesg > $saveto/system_dmesg.txt"
+dmesg > "$saveto/system_dmesg.txt"
 
 # 5. Collect device information.
 log "# Collecting information about currently mounted devices."
-log "$(mount > "$saveto/mounted_devices.txt")"
+log "mount > $saveto/mounted_devices.txt"
+mount > "$saveto/mounted_devices.txt"
 
-# Create checksums for all files.
+# Create checksums for all files
 log "# Creating checksums (sha512sum) for all files."
-log "$(sha512sum "$saveto/"* > "$saveto/.sums" "$saveto/sha512sums.txt")"
+log "sha512sum $saveto/* > $saveto/sha512sums.txt"
+sha512sum "$saveto/"* > "$saveto/sha512sums.txt"
+log "sed 's/^.*sha512sums.txt.*$//; s/^.*log.txt.*$//' $saveto/sha512sums.txt"
+sed 's/^.*sha512sums.txt.*$//; s/^.*log.txt.*$//' "$saveto/sha512sums.txt"
+
 log "# All tasks completed. Exiting."
