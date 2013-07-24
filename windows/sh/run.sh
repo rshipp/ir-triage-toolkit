@@ -36,6 +36,11 @@ log "$bin/memoryze/MemoryDD.bat --output '$memfile'"
 "$bin/memoryze/MemoryDD.bat" --output "$memfile" 
 log "# Memoryze finished."
 
+# 1.5. Grab the prefetch files, so we don't overwrite evidence.
+log "# Copying Windows Prefetch files..."
+log "cp -pr 'C:\Windows\Prefetch\' '$saveto/prefetch/'"
+cp -pr 'C:\Windows\Prefetch\' "$saveto/prefetch/"
+
 # 2. Collect network information.
 log "# Collecting network information..."
 log "netstat -ab > $saveto/network.txt 2>&1"
