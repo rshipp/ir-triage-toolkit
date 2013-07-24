@@ -43,8 +43,8 @@ log "# Starting data collection..."
 # 1. Acquire a full memory dump.
 log "# Starting dc3dd to dump system memory..."
 memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
-log "$bin/dc3dd if=/dev/mem hash=sha512 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
-"$bin/dc3dd" if=/dev/mem hash=sha512 of="${memfile}.dd" \
+log "$bin/dc3dd if=/dev/mem hash=sha256 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
+"$bin/dc3dd" if=/dev/mem hash=sha256 of="${memfile}.dd" \
              log="${memfile}.log" hlog="${memfile}.sum"
 log "# dc3dd finished."
 
@@ -78,10 +78,10 @@ log "mount > $saveto/mounted_devices.txt 2>&1"
 mount > "$saveto/mounted_devices.txt" 2>&1
 
 # Create checksums for all files
-log "# Creating checksums (sha512sum) for all files."
-log "sha512sum $saveto/* > $saveto/sha512sums.txt"
-sha512sum "$saveto/"* > "$saveto/sha512sums.txt"
-log "sed 's/^.*sha512sums.txt.*$//; s/^.*log.txt.*$//' $saveto/sha512sums.txt"
-sed 's/^.*sha512sums.txt.*$//; s/^.*log.txt.*$//' "$saveto/sha512sums.txt"
+log "# Creating checksums (sha256sum) for all files."
+log "sha256sum $saveto/* > $saveto/sha256sums.txt"
+sha256sum "$saveto/"* > "$saveto/sha256sums.txt"
+log "sed 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' $saveto/sha256sums.txt"
+sed 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' "$saveto/sha256sums.txt"
 
 log "# All tasks completed. Exiting."
