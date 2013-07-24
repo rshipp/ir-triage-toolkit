@@ -26,8 +26,12 @@ if not exist windows\run.bat (
 )
 
 rem Install the local toolkit files
-copy windows\ "%saveto%\"
+windows\bin\cp.exe -r windows/* "%saveto%\"
 
 rem Download/Install Memoryze
-windows\bin\wget.exe http://www.mandiant.com/library/MemoryzeSetup3.0.msi
+windows\bin\wget.exe -c http://www.mandiant.com/library/MemoryzeSetup3.0.msi
 msiexec /a MemoryzeSetup3.0.msi /qb TARGETDIR="%saveto%\bin\memoryze"
+
+echo All done.
+echo Press any key to exit...
+pause >nul 2>nul
