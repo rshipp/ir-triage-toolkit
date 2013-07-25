@@ -9,14 +9,14 @@
 
 # Where should we store the data?
 savedir=$1
-[[ -n $savedir ]] || (
+if ! [[ -n $savedir ]]; then
   echo -n "Directory to store data: "
   read savedir
   [[ -d $savedir ]] || mkdir -p "$savedir" || (
     echo "Not a valid directory."
     exit 1
     ) || exit 1
-  ) || exit 1
+fi
 
 # Where are our binaries?
 bin="$(pwd)/tools/$(uname -m)/bin"
@@ -32,7 +32,7 @@ mkdir -p "$saveto"
 logfile="$saveto/log.txt"
 
 log() {
-  echo -n "$(date +"%b %d %H:%M:%S") $(hostname) irscript: $1" | tee -a "$logfile"
+  echo "$(date +"%b %d %H:%M:%S") $(hostname) irscript: $1" | tee -a "$logfile"
 }
 
 # Start the log.
@@ -81,7 +81,7 @@ mount > "$saveto/mounted_devices.txt" 2>&1
 log "# Creating checksums (sha256sum) for all files."
 log "sha256sum $saveto/* > $saveto/sha256sums.txt"
 sha256sum "$saveto/"* > "$saveto/sha256sums.txt"
-log "sed 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' $saveto/sha256sums.txt"
-sed 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' "$saveto/sha256sums.txt"
+log "sed -i 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' $saveto/sha256sums.txt"
+sed -i 's/^.*sha256sums.txt.*$//; s/^.*log.txt.*$//' "$saveto/sha256sums.txt"
 
 log "# All tasks completed. Exiting."
