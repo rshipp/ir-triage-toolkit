@@ -1,0 +1,8 @@
+v=1.1-r17
+a=$(uname -m)
+b="$(pwd)/../tools/$a"
+wget -c "https://lime-forensics.googlecode.com/files/lime-forensics-$v.tar.gz"
+tar xf "lime-forensics-$v.tar.gz"
+cd "src"
+make
+cp lime-*.ko "$b/bin/lime.ko"

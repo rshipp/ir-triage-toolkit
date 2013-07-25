@@ -1,9 +1,0 @@
-v=7.1.614
-a=$(uname -m)
-b="$(pwd)/../tools/$a"
-wget -c "http://downloads.sf.net/sourceforge/dc3dd/dc3dd-$v.tar.bz2"
-tar xf "dc3dd-$v.tar.bz2"
-cd "dc3dd-$v"
-./configure --prefix=/
-make CC=gcc\ -static
-make DESTDIR="$b" install

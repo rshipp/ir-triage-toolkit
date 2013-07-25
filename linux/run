@@ -41,12 +41,11 @@ log "# Incident response volatile data collection script."
 log "# Starting data collection..."
 
 # 1. Acquire a full memory dump.
-log "# Starting dc3dd to dump system memory..."
-memfile="$saveto/memdump-$(hostname)-linux-$(uname -m)"
-log "$bin/dc3dd if=/dev/mem hash=sha256 of='${memfile}.dd' log='${memfile}.log' hlog='${memfile}.sum'"
-"$bin/dc3dd" if=/dev/mem hash=sha256 of="${memfile}.dd" \
-             log="${memfile}.log" hlog="${memfile}.sum"
-log "# dc3dd finished."
+log "# Starting LiME to dump system memory..."
+memfile="$saveto/memdump-$(hostname)-linux-$(uname -m).lime"
+log "insmod $bin/lime.ko 'path=$memfile format=lime'"
+insmod "$bin/lime.ko" "path='$memfile' format=lime"
+log "# LiME finished."
 
 # 2. Collect network information.
 log "# Collecting network information..."
