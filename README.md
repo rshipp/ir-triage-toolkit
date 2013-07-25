@@ -24,6 +24,11 @@ Linux:
 
     ./create-toolkit /store/it/here
 
+Note: Steps 1-3 should be run on a non-involved machine, preferably
+before an incident even occurs. The toolkit it creates should be stored
+on a USB drive or similar location, where it can be used in case an
+incident does occur.
+
 Once the toolkit has been created, you can use it by opening a shell in
 the directory where the toolkit is stored, and starting the volatile
 data collection script:
