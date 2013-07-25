@@ -1,5 +1,7 @@
 @echo off
 rem Collect data.
+setlocal enableextensions
+cd /d "%~dp0"
 
 rem Make sure we're Admin.
 net file >nul 2>nul
@@ -15,7 +17,7 @@ if not exist bin\bash.exe (
 	echo Windows IR binaries cannot be found.
 	echo This script must be run inside its own directory.
 	echo Press any key to exit...
-	pause >nul
+	pause >nul 2>nul
 	goto :eof
 )
 
