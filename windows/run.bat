@@ -21,6 +21,13 @@ if not exist bin\bash.exe (
 	goto :eof
 )
 
+rem Detect the sytem architecture.
+if %PROCESSOR_ARCHITECTURE%==AMD64 (
+	set ARCH=64
+) else (
+	set ARCH=86
+)
+
 rem Get out of this ridiculous Windows shell and into something more useful.
 bin\bash.exe sh\run.sh %1
 echo Press any key to exit...
