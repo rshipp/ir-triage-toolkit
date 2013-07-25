@@ -43,8 +43,10 @@ log "# Starting data collection..."
 # 1. Acquire a full memory dump.
 log "# Starting LiME to dump system memory..."
 memfile="$saveto/memdump-$(hostname)-linux-$(uname -m).lime"
-log "insmod $bin/lime.ko 'path=$memfile format=lime'"
-insmod "$bin/lime.ko" "path='$memfile' format=lime"
+log "insmod $bin/lime.ko \"path='$memfile' format=lime\""
+insmod "$bin/lime.ko" "path=\"$memfile\" format=lime"
+log "rmmod lime"
+rmmod lime
 log "# LiME finished."
 
 # 2. Collect network information.
