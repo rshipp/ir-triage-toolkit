@@ -6,7 +6,7 @@ Linux, without violating any license agreements or copyright
 restrictions.
 
 ## Description
-A collection of scripts that can be used to create a toolkit for
+A collection of scripts can create a toolkit for
 incident response and volatile data collection. This includes bash
 scripts to create a Linux toolkit, and Batch scripts to create a Windows
 toolkit.
